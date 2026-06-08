@@ -1,8 +1,6 @@
 - name: configure backend server
   hosts: backend
   become: yes
-  vars:
-    MYSQL_PASSWORD: ExpenseApp@1
   tasks:
   - name: install nodejs
     package:
@@ -55,7 +53,7 @@
       target: /app/schema/backend.sql
       login_host: "{{ MYSQL_HOST }}"
       login_user: root
-      login_password: "{{ MYSQL_PASSWORD }}"
+      login_password: ExpenseApp@1
   - name: deamon reload
     systemd_Service:
       name: backend
