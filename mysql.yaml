@@ -8,7 +8,7 @@
       state: present
   - name: find sql_host
     debug:
-      msg: MYSQL_HOST
+      msg: "{{ MYSQL_HOST }}"
     
   # - name: setting root MYSQL_PASSWORD
   #   command: mysql_secure_installation --set-root-pass ExpenseApp@1
