@@ -1,0 +1,73 @@
+- name: configure backend server
+  hosts: backend
+  become: yes
+  vars:
+    MYSQL_PASSWORD: ExpenseApp@1
+  tasks:
+  - name: install nodejs
+    package:
+      name: nodejs  
+      state: present
+  - name: remove app directory
+    file:
+      path: /app
+      state: absent
+  - name: setup working dir
+    file:
+      path: /app
+      state: directory
+  - name: create application login_user
+    user:
+      name: expense
+      shell: /sbin/nologin
+      home: /app
+      system: yes
+      comment: "expense system user"
+  - name: delete unzip app
+    file:
+        path: /tmp/backend.tar.gz
+        state: absent
+  - name: download application
+    get_url:
+      url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz
+      dest: /tmp/backend.tar.gz
+
+  - name: unzip app
+    unarchive:
+      src: /tmp/backend.tar.gz
+      dest: /app
+      remote_src: yes
+  - name: insatll dependinces
+    community.general.npm:
+      path: /app
+  - name: copy systemd  service
+    copy:
+      src: backend.service.j2
+      dest: /etc/systemd/system/backend.service
+  - name: install python dependinces
+    pip: 
+      name: PyMySQL
+      executable: pip3.9
+  - name: load schema
+    ansible.mysql.mysql_db:
+      name: all
+      state: import
+      target: /app/schema/backend.sql
+      login_host: "{{ MYSQL_HOST }}"
+      login_user: root
+      login_password: "{{ MYSQL_PASSWORD }}"
+  - name: deamon reload
+    systemd_Service:
+      name: backend
+      daemon_reload: true
+  - name: enable and start backend
+    service:
+      name: backend
+      state: restarted
+      enabled: yes
+
+
+
+
+
+

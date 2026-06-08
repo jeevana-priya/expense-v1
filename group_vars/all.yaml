@@ -1,0 +1,4 @@
+ansible_user: ec2_user
+ansibl_password: DevOps321
+MYSQL_HOST: mysql.matamma.online
+BACKEND_HOST: backend.matamma.online

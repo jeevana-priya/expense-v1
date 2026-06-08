@@ -1,0 +1,48 @@
+- name: configure frontend server
+  hosts: frontend
+  become: yes
+  tasks:
+  - name: install nginx
+    package:
+      name: nginx
+      state: present
+
+  - name: remove default content
+    file:
+      path: /usr/share/nginx/html
+      state: absent
+  - name: remove unzip file
+    file:
+      path: /tmp/frontend.tar.gz
+      state: absent
+  - name: create html directory
+    file:
+      path: /usr/share/nginx/html
+      state: present
+
+  - name: download frontend packages
+    get_url:
+      url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v3.tar.gz
+      dest: /usr/share/nginx/html
+
+  - name: unzip file
+    unarchive:
+      src: /tmp/frontend.tar.gz
+      dest: /usr/share/nginx/html/
+      remote_src: yes
+  - name: remove nginx default conf
+    file:
+      path: /etc/nginx/default.d/expense.conf
+      state: absent
+  - name: copy nginx conf
+    template:
+      src: expense.conf.j2
+      dest: /etc/nginx/default.d/expense.conf
+    
+  - name: configure file
+  - name: enable and start nginx
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+  
