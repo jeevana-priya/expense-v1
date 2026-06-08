@@ -3,8 +3,8 @@
   connection: local
   vars:
     instances: ["mysql","backend","frontend"]
-    image_id:
-    vpc_subnet_id:
+    image_id: ami-0220d79f3f480ecf5
+    vpc_subnet_id: subnet-0bcdf0124041a31dc
     domain_name: matamma.online
     action: create
   tasks:
