@@ -10,7 +10,7 @@
   - name: setting root MYSQL_PASSWORD
     command: mysql_secure_installation --set-root-pass ExpenseApp@1
   - name: load schema
-    ansible.mysql.mysql_db:
+    community.mysql.mysql_db:
       name: all
       state: import
       target: /app/schema/backend.sql
