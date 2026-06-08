@@ -18,12 +18,12 @@
   - name: create html directory
     file:
       path: /usr/share/nginx/html
-      state: present
+      state: directory
 
   - name: download frontend packages
     get_url:
       url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v3.tar.gz
-      dest: /usr/share/nginx/html
+      dest: /tmp/frontend.tar.gz
 
   - name: unzip file
     unarchive:
@@ -39,7 +39,7 @@
       src: expense.conf.j2
       dest: /etc/nginx/default.d/expense.conf
     
-  - name: configure file
+  # - name: configure file
   - name: enable and start nginx
     service:
       name: nginx

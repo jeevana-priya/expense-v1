@@ -17,12 +17,12 @@
   #     login_host: "{{ MYSQL_HOST }}"
   #     login_user: root
   #     login_password: ExpenseApp@1
-  - name: Load application schema
-    shell: |
-      mysql -h {{ MYSQL_HOST }} \
-            -u root \
-            -pExpenseApp@1 \
-            < /app/schema/backend.sql
+  # - name: Load application schema
+  #   shell: |
+  #     mysql -h {{ MYSQL_HOST }} \
+  #           -u root \
+  #           -pExpenseApp@1 \
+  #           < /app/schema/backend.sql
 
   - name: enable and start mysqld
     service:

@@ -29,7 +29,10 @@
     get_url:
       url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz
       dest: /tmp/backend.tar.gz
-
+  - name: install mysql client
+    package:
+      name: mysql
+      state: present
   - name: unzip app
     unarchive:
       src: /tmp/backend.tar.gz
@@ -39,7 +42,7 @@
     community.general.npm:
       path: /app
   - name: copy systemd  service
-    copy:
+    template:
       src: backend.service.j2
       dest: /etc/systemd/system/backend.service
   - name: install python dependinces
@@ -52,7 +55,14 @@
             -u root \
             -pExpenseApp@1 \
             < /app/schema/backend.sql
-  
+  # - name: load schema
+  #   community.mysql.mysql_db:
+  #     name: all
+  #     state: import
+  #     target: /app/schema/backend.sql
+  #     login_host: "{{ MYSQL_HOST }}"
+  #     login_user: root
+  #     login_password: ExpenseApp@1
   - name: deamon reload
     systemd_service:
       name: backend
