@@ -54,8 +54,9 @@
       login_host: "{{ MYSQL_HOST }}"
       login_user: root
       login_password: ExpenseApp@1
+  
   - name: deamon reload
-    systemd_Service:
+    systemd_service:
       name: backend
       daemon_reload: true
   - name: enable and start backend
