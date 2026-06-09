@@ -64,7 +64,7 @@
       target: /app/schema/backend.sql
       login_host: mysql.matamma.online
       login_user: root
-      login_password: -pExpenseApp@1
+      login_password: ExpenseApp@1
   - name: deamon reload
     systemd_service:
       name: backend
