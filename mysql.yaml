@@ -13,20 +13,6 @@
     
   - name: setting root MYSQL_PASSWORD
     command: mysql_secure_installation --set-root-pass ExpenseApp@1
-  # - name: load schema
-  #   community.mysql.mysql_db:
-  #     name: all
-  #     state: import
-  #     target: /app/schema/backend.sql
-  #     login_host: "{{ MYSQL_HOST }}"
-  #     login_user: root
-  #     login_password: ExpenseApp@1
-  - name: Load application schema
-    shell: |
-      mysql -h {{ MYSQL_HOST }} \
-            -u root \
-            -pExpenseApp@1 \
-            < /app/schema/backend.sql
 
   - name: enable and start mysqld
     service:
