@@ -55,7 +55,7 @@
       -u root \
       --password='ExpenseApp@1' \
       < /app/schema/backend.sql
-  args:
+    args:
     creates: /tmp/schema_loaded
   # - name: load schema
   #   community.mysql.mysql_db:
