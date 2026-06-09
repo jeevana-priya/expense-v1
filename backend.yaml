@@ -52,9 +52,11 @@
   - name: Load application schema
     shell: |
       mysql -h {{ MYSQL_HOST }} \
-            -u root \
-            -pExpenseApp@1 \
-            < /app/schema/backend.sql
+      -u root \
+      --password='ExpenseApp@1' \
+      < /app/schema/backend.sql
+  args:
+    creates: /tmp/schema_loaded
   # - name: load schema
   #   community.mysql.mysql_db:
   #     name: all
