@@ -43,7 +43,7 @@
       path: /app
   - name: copy systemd  service
     template:
-      src: backend.service.j2
+      src: backend.service
       dest: /etc/systemd/system/backend.service
   - name: install python dependinces
     pip: 
@@ -62,7 +62,7 @@
       name: all
       state: import
       target: /app/schema/backend.sql
-      login_host: "{{ MYSQL_HOST }}"
+      login_host: mysql.matamma.online
       login_user: root
       login_password: -pExpenseApp@1
   - name: deamon reload
