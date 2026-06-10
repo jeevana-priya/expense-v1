@@ -49,22 +49,22 @@
     pip: 
       name: PyMySQL
       executable: pip3.9
-  - name: Load application schema
-    shell: |
-      mysql -h {{ MYSQL_HOST }} \
-            -u root \
-            -pRoboShop@1 \
-            < /app/schema/backend.sql
+  # - name: Load application schema
+  #   shell: |
+  #     mysql -h {{ MYSQL_HOST }} \
+  #           -u root \
+  #           -pRoboShop@1 \
+  #           < /app/schema/backend.sql
   # #   args:
   # #     creates: /tmp/schema_loaded
-  # - name: load schema
-  #   community.mysql.mysql_db:
-  #     name: all
-  #     state: import
-  #     login_user: root
-  #     login_password: ExpenseApp@1
-  #     login_host: "{{ MYSQL_HOST }}"
-  #     target: /app/schema/backend.sql
+  - name: load schema
+    community.mysql.mysql_db:
+      name: all
+      state: import
+      login_user: root
+      login_password: ExpenseApp@1
+      login_host: "{{ MYSQL_HOST }}"
+      target: /app/schema/backend.sql
   #   tags: schema
 
 
