@@ -62,7 +62,7 @@
       name: all
       state: import
       login_user: root
-      login_password: ExpenseApp@1
+      login_password: RoboShop@1
       login_host: "{{ MYSQL_HOST }}"
       target: /app/schema/backend.sql
   #   tags: schema
