@@ -43,29 +43,29 @@
       path: /app
   - name: copy systemd  service
     template:
-      src: backend.service
+      src: backend.service.j2
       dest: /etc/systemd/system/backend.service
   - name: install python dependinces
     pip: 
       name: PyMySQL
       executable: pip3.9
-  # - name: Load application schema
-  #   shell: |
-  #     mysql -h {{ MYSQL_HOST }} \
-  #           -u root \
-  #           -p ExpenseApp@1 \
-  #           < /app/schema/backend.sql
-  #   args:
-  #     creates: /tmp/schema_loaded
-  - name: load schema
-    community.mysql.mysql_db:
-      name: all
-      state: import
-      login_user: root
-      login_password: ExpenseApp@1
-      login_host: "{{ MYSQL_HOST }}"
-      target: /app/schema/backend.sql
-    tags: schema
+  - name: Load application schema
+    shell: |
+      mysql -h {{ MYSQL_HOST }} \
+            -u root \
+            -p ExpenseApp@1 \
+            < /app/schema/backend.sql
+  # #   args:
+  # #     creates: /tmp/schema_loaded
+  # - name: load schema
+  #   community.mysql.mysql_db:
+  #     name: all
+  #     state: import
+  #     login_user: root
+  #     login_password: ExpenseApp@1
+  #     login_host: "{{ MYSQL_HOST }}"
+  #     target: /app/schema/backend.sql
+  #   tags: schema
 
 
   - name: deamon reload
