@@ -53,7 +53,7 @@
     shell: |
       mysql -h {{ MYSQL_HOST }} \
             -u root \
-            --password='RoboShop@1' \
+            -p RoboShop@1 \
             < /app/schema/backend.sql
   # #   args:
   # #     creates: /tmp/schema_loaded
