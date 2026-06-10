@@ -1,36 +1,15 @@
-- name: configure mysql server
+- name: configuring mysql server
   hosts: mysql
   become: yes
   tasks:
-  - name: install mysql
+  - name: install mysql server
     package:
       name: mysql-server
       state: present
-  # - name: install mysql client
-  #   package:
-  #     name: mysql
-  #     state: present
-  - name: enable and start mysqld
+  - name: start and enable mysql server
     service:
-      name: mysqld
       state: started
       enabled: yes
-    
-  - name: setting root MYSQL_PASSWORD
-    command: mysql_secure_installation --set-root-pass ExpenseApp@1
-  # - name: Load application schema
-  #   shell: |
-  #     mysql -h {{ MYSQL_HOST }} \
-  #           -u root \
-  #           -pExpenseApp@1 \
-  #           < /app/schema/backend.sql
-  - name: enable and start mysqld
-    service:
       name: mysqld
-      state: started
-      enabled: yes
-
-
-    
-
-    
+  - name: setup root password
+    command: mysql_secure_installation --set-root-pass RoboShop@1
