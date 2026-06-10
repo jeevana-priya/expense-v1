@@ -63,7 +63,7 @@
       state: import
       login_user: root
       login_password: ExpenseApp@1
-      login_host: {{ MYSQL_HOST }}
+      login_host: "{{ MYSQL_HOST }}"
       target: /app/schema/backend.sql
     tags: schema
 
