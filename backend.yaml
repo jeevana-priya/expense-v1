@@ -53,7 +53,7 @@
     shell: |
       mysql -h {{ MYSQL_HOST }} \
             -u root \
-            -pExpenseApp@1 \
+            --password='ExpenseApp@1' \
             < /app/schema/backend.sql
   # #   args:
   # #     creates: /tmp/schema_loaded
