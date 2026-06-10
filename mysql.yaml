@@ -6,10 +6,10 @@
     package:
       name: mysql-server
       state: present
-  - name: install mysql client
-    package:
-      name: mysql
-      state: present
+  # - name: install mysql client
+  #   package:
+  #     name: mysql
+  #     state: present
   - name: enable and start mysqld
     service:
       name: mysqld
@@ -18,6 +18,17 @@
     
   - name: setting root MYSQL_PASSWORD
     command: mysql_secure_installation --set-root-pass ExpenseApp@1
+  - name: Load application schema
+    shell: |
+      mysql -h {{ MYSQL_HOST }} \
+            -u root \
+            -pExpenseApp@1 \
+            < /app/schema/backend.sql
+  - name: enable and start mysqld
+    service:
+      name: mysqld
+      state: started
+      enabled: yes
 
 
     
